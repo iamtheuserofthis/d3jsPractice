@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <style>
+            div.bar{
+                margin-left: 5px;
+                display: inline-block;
+                width: 45px;
+                height: 0px;
+                background-color: cadetblue;
+            }
+        </style>
+    </head>
+    <body>
+        
+        
+        
+        <script>
+           var data = [10,15,20,25,30,35,40,12,17,22,27,32,37,42];
+         d3.select("body")
+                 .selectAll("div")
+                 .data(data)
+                 .enter()
+                 .append("div")
+                 .attr("class","bar")
+                 .attr("id","bar")
+                 .style("height",function(d){
+                     return (d*10)+"px";
+                 }).text(function(d){return d;});
+                
+            
+        </script>
+    </body>
+</html>

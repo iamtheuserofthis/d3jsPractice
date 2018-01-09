@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Append Node</title>
+	<script src="https://d3js.org/d3.v4.js"></script>
+        
+            
+</head>
+<body>
+
+<script type="text/javascript">
+    var dat = [25,36,27,20,32,29];
+	//d3.select("body").append("p").text("content of the paragraph");
+	d3.select("body")
+                .selectAll("p")
+                .data(dat)
+                .enter().append("p")
+                .style("background",function(d){
+                    if(d>30) return "red";
+                    else return "darkblue"
+                })
+                .style("color","white")
+                .style("width",function(d){return d*10+"px"})
+                .text(function(d){return "text_val - "+d;});
+       
+       
+</script>
+</body>
+</html>

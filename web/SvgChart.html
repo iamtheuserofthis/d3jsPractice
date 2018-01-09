@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>First SVG bar chart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <script src="https://d3js.org/d3.v4.js"></script>
+    </head>
+    <body>
+       
+        <div> Above average are red</div>
+        
+        <script type="text/javascript">
+           var w = 500;
+           var h = 400;
+           var data = [29,15,20,25,30,26,20,11,12,14,16,17,18,20,22,26,20,12,11,12,17,21,33,25,27,24,22,30];
+           
+           var avg;
+           var sum=0;
+           for(i=0;i<(data.length);i++){
+              
+              sum += data[i];
+          }
+           
+           avg= sum/data.length;
+            var svg = d3.select("body")
+                   .append("svg")
+                   .attr("height",h)
+                   .attr("width",w);
+           
+            svg.selectAll("rect")
+                   .data(data)
+                   .enter()
+                   .append("rect")
+                   .attr("x",function(d,i){return i*w/data.length;})
+                  .attr("y",function(d){return h-(10*d)})
+                  .attr("width",function(d,i){return w/data.length;})
+                   .attr("stroke-width",2)
+                   .attr("stroke","white")
+                   .attr("fill",function(d){
+                       if(d<avg) return "rgb(0,0,"+(10*d)+")";
+                       else return "rgb("+10*d+",0,0)";
+                   })
+                   .attr("height",function(d){return 10*d});
+            
+              svg.selectAll("text")
+                     .data(data)
+                     .enter()
+                     .append("text")
+                     .text(function(d){return d;})
+             .attr("x",function(d,i){return i*(w/data.length);})
+                  .attr("y",function(d){return h-10*d+15})
+                  .attr("fill","white");
+        </script>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <style type="text/css">
+            div.bar{
+                margin-left:5px;
+                display: inline-block;
+                height: 100px;
+                width: 60px;
+                background: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Vertical Bar Charts</h1>
+        <script>
+            var val = [30,35,32,40,45,29];
+            
+            
+            d3.select("body")
+                    .selectAll("div")
+                    .data(val)
+                    .enter()
+                    .append("div")
+                    .attr("class","bar")
+                    .style("height",function(d){return d*10+"px";})
+                    .text(function(d){return d;});
+        </script>
+    </body>
+</html>

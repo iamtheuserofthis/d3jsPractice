@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scatter Plot</title>
+         <script src="https://d3js.org/d3.v4.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+    </head>
+    <body>
+        
+        <script type="text/javascript" >
+            var h = 300;
+            var w = 500;
+            var points = [
+                           [10,15],
+                           [15,20],
+                           [13,18],
+                           [18,23],
+                           [25,10],
+                           [30,15]
+                         ];
+         var svg = d3.select("body")
+                     .append("svg")
+                     .attr("height",h)
+                     .attr("width",w)
+                     .style("border-top","2px solid black")
+                     .style("border-left","2px solid black");
+             
+                     
+                    svg.selectAll("circle")    
+                     .data(points)
+                     .enter()
+                     .append("circle")
+                     .attr("cx",function(d){return d[0]*10;})
+                     .attr("cy",function(d){return d[1]*10;})
+                     .attr("r",2.5);
+                    svg.selectAll("text")
+                            .data(points)
+                            .enter()
+                            .append("text")
+                            .text(function(d){return d[0]+","+d[1]})
+                            .attr("x",function(d){return (10*d[0])+2;})
+                            .attr("y",function(d){return (10*d[1])-2;});
+                    
+                    
+             
+        </script>
+    </body>
+</html>
