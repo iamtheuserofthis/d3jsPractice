@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scaled Bar Graph</title>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Scaled Bar Graph</h1>
+        <h4 id="datval"></h4>
+        <script>
+            var h =600;
+            var w =400;
+            var dataset = [100,200,300,400,500,600,700,800,900,1000,700,500,300];
+          
+            var scale = d3.scaleLinear()
+                    .domain([100,d3.max(dataset)])
+                    .range([0,h]);
+            //document.getElementById("datval").innerHTML = scale(800);
+            
+            var maxVal = d3.max(dataset);
+       
+    
+            
+    
+    
+    
+            var svg = d3.select("body")
+                        .append("svg")
+                        .attr("height",h)
+                        .attr("width",w);
+           
+                
+                svg.selectAll("rect")
+                        .data(dataset)
+                        .enter()
+                        .append("rect")
+                        .attr("x",function(d,i){return i*(w/dataset.length);})
+                        .attr("y",function(d){return h-scale(d);})
+                        .attr("width",function(d,i){return (w/dataset.length);})
+                        .attr("height",function(d){return scale(d);})
+                        .attr("fill","blue")
+                        .attr("stroke-width",2)
+                        .attr("stroke","white");
+                
+                svg.selectAll("text")
+                        .data(dataset)
+                        .enter()
+                        .append("text")
+                        .text(function(d){return d;})
+                        .attr("x",function(d,i){return i*(w/dataset.length);})
+                        .attr("fill","white")
+                        .attr("y",function(d){return h-scale(d)+17;});
+        </script>
+    </body>
+</html>

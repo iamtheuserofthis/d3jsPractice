@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>More Appropriate Charts</title>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            var dataset = [10,11,12,13,14,15];
+            var h = 500;
+            var w = 600;
+            var padding = 20;
+            
+            var yScale = d3.scaleLinear()
+                    .domain([d3.min(dataset),d3.max(dataset)])
+                    .range([0,h]);
+            var svg = d3.select("body")
+                    .append("svg")
+                    .attr("width",w+20)
+                    .attr("height",h+20);
+            
+            svg.selectAll("rect")
+                    .data(dataset)
+                    .enter()
+                    .append("rect")
+                    .attr("x",function(d,i){return i*w/dataset.length;})
+                    .attr("y", function(d){return h-yScale(d);})
+                    .attr("stroke","white")
+                    .attr("stroke-width",2)
+                    .attr("width",w/dataset.length)
+                    .attr("height",function(d){return yScale(d);});
+            
+            var yScaleAxis = d3.scaleLinear()
+                    .domain([d3.min(dataset),d3.max(dataset)])
+                    .range([h,0]);
+            
+            var yAxis = d3.axisRight(yScaleAxis);
+            svg.append("g")
+                    .attr("class","yaxis")
+                    //.attr("transform","translate(0,"+2*padding+")")
+                    .call(yAxis);
+            
+            
+        </script>
+    </body>
+</html>
