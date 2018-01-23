@@ -13,6 +13,7 @@
         </div>
        
         <script>
+            
             var h=500,w=600;
              var dataset = [29,15,20,11,12,14,16,17,18,20,22,26,20,12,11,12,17,21,33,25,27,24,22,30];
             xScale = d3.scaleBand()
@@ -56,8 +57,10 @@
                  svg.selectAll("rect")
                          .data(dataset2)
                          .transition()
+                         .duration(500)
                          .attr("y",function(d){return h-yscale(d);})
-                         .attr("height",function(d){return yscale(d);});
+                         .attr("height",function(d){return yscale(d);})
+                         .attr("fill",function(d){return "rgb(0,0,"+(10*d)+")";});
               
                 d3.selectAll("text").remove();
                 svg.selectAll("text")
@@ -68,6 +71,9 @@
                     .attr("x",function(d,i){return xScale(i);})
                     .attr("y",function(d){return (h-(yscale(d)-15));})
                     .attr("fill","white");
+            
+          // var yAxis = d3.axisLeft(yScale)
+                         //.
         }
                         
             

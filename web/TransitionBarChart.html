@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bar Graph Chart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://d3js.org/d3.v4.js"></script>
+    </head>
+    <body>
+        <div>
+            <p id="mousehov">Hover over here, move out to revert</p>
+        </div>
+        <script>
+            var dataset = [20,22,24,26,28,30,21,23,25,27,29,31,33,35,16,18,22,15,17];
+            var padding =40;
+            var h=400,w=500;
+            var xScale = d3.scaleBand()
+                    .domain(d3.range(dataset.length))
+                    .range([0,w])
+                    .round(true)
+                    .padding(.09);
+            
+            var yScale = d3.scaleLinear()
+                    .domain([0,d3.max(dataset)])
+                    .range([(h),0]);
+            
+            var svg = d3.select("body")
+                    .append("svg")
+                    .attr("height",h+padding)
+                    .attr("width",w+padding)
+                    .append("g")
+                    .attr("transform", "translate("+padding+","+(padding-10)+")");
+            
+            svg.selectAll("rect")
+                    .data(dataset)
+                    .enter()
+                    .append("rect")
+                    .attr("x",function(d,i){return xScale(i);})
+                    .attr("y",function(d){return yScale(d);})
+                    .attr("height",function(d){return h-yScale(d);})
+                    .attr("fill",function(d){return "rgb(0,0,"+(d*10)+")"})
+                    .attr("width",w/dataset.length)
+                    .attr("stroke","white");
+            svg.selectAll("text")
+                    .data(dataset)
+                    .enter()
+                    .append("text")
+                    .text(function(d){return d;})
+                    .attr("x",function(d,i){return xScale(i)})
+                    .attr("fill","white")
+                    .attr("y",function(d){return (yScale(d)+15);});
+            
+            var yAxis = d3.axisLeft(yScale);
+            svg.append("g")
+                   .attr("transform","translate(0,0)")
+                    .call(yAxis);
+                    
+             d3.select("p")
+                     .on("mouseover",overfunc);
+             d3.select("p")
+                     .on("mouseout",outfunc);
+             
+             function overfunc(){
+                 var dataset2 = [10,20,25,21,23,25,27,29,31,22,24,26,28,30,12,14,16,18,20];
+                 svg.selectAll("rect")
+                         .data(dataset2)
+                         .transition()
+                         .duration(500)
+                         .attr("y",function(d){return yScale(d);})
+                         .attr("height",function(d){return h-yScale(d);})
+                         .attr("fill",function(d){return "rgb(0,"+10*d+",0)";});
+                
+                d3.selectAll("text").remove();
+                 
+                svg.selectAll("text")
+                         .data(dataset2)
+                         .enter()
+                         .append("text")
+                         .text(function(d){return d;})
+                         .attr("fill","white")
+                         .attr("x",function(d,i){return xScale(i)})
+                         .attr("y",function(d){return yScale(d)+15;});
+                 
+                  // var yAxis = d3.axisLeft(yScale);
+            svg.append("g")
+                   .attr("transform","translate(0,0)")
+                    .call(yAxis);
+             }
+             
+             function outfunc(){
+                 svg.selectAll("rect")
+                         .data(dataset)
+                         .transition()
+                         .duration(500)
+                         .attr("y",function(d){return yScale(d);})
+                         .attr("height",function(d){return h-yScale(d);})
+                         .attr("fill",function(d){return "rgb(0,0,"+10*d+")"});
+              
+                 d3.selectAll("text").remove();
+                 svg.selectAll("text")
+                         .data(dataset)
+                         .enter()
+                         .append("text")
+                         .text(function(d){return d;})
+                         .attr("x",function(d,i){return xScale(i);})
+                         .attr("y",function(d){return yScale(d)+15;})
+                         .attr("fill","white");
+               // var yAxis = d3.axisLeft(yScale)
+                 svg.append("g")
+                         .call(yAxis);
+             }
+            
+        </script>
+    </body>
+</html>
